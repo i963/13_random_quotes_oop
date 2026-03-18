@@ -12,7 +12,6 @@ constructor(id, text, author) {
 
 	formatAuthor(){
 		return `© ${this.author}`
-
 	}
 }
 
