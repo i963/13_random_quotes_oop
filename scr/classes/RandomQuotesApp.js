@@ -24,11 +24,11 @@ class RandomQuotesApp {
     }
 }
 
-  getRandomQuote() {
+  randomQuoteHandler() {
     this.changeCurrentQuote(RandomQuote.getRandomQuote());
   }
 
-  async getRandomQuoteViaAPI(){
+  async randomQuoteViaAPIHandler(){
     // put code on pause still promise will be fulfilled
     const quoteViaAPI = await RandomQuote.getRandomQuoteViaAPI();
     // change current quote
@@ -36,8 +36,8 @@ class RandomQuotesApp {
   }
 
   init() {
-    this.randomQuoteBtn.addEventListener("click", () => this.getRandomQuote());
-    this.randomQuoteAPIBtn.addEventListener("click", () => this.getRandomQuoteViaAPI());
+    this.randomQuoteBtn.addEventListener("click", () => this.randomQuoteHandler());
+    this.randomQuoteAPIBtn.addEventListener("click", () => this.randomQuoteViaAPIHandler());
   }
 }
 
