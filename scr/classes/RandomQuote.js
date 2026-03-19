@@ -11,14 +11,30 @@ class RandomQuote {
     return new Quote(id, text, author);
   }
 
-  static getRandomQuoteViaAPI(){
+// Promise returned by the getRandomQuoteViaAPI function will be always fulfilled
+// Result of the fulfilled promise will be either Quote or undefined
+  static async getRandomQuoteViaAPI() {
     const url = 'https://quoteslate.vercel.app/api/quotes/random';
-    
-    return fetch(url, {headers: {'Content-Type': 'application/json'}})
-      .then((response) => response.json())
-      .then(({ id, quote, author}) => new Quote (id, quote, author))
-      .catch((error) => console.error(error));
+    const options = {headers: {'Content-Type': 'application/json'}};
+    try {
+      // wait result of 2 promise 
+      const response = await fetch(url, options)
+      // destruct object + form new quote from resolves promise
+      const { id, quote, author} =  await response.json();
+      return new Quote (id, quote, author)
+    } catch (error) {
+      console.error(error);
+      // return undefined implicitly (resolves promise to undefined )
+    }
   }
+  // static getRandomQuoteViaAPI(){
+  //   const url = 'https://quoteslate.vercel.app/api/quotes/random';
+    
+  //   return fetch(url, {headers: {'Content-Type': 'application/json'}})
+  //     .then((response) => response.json())
+  //     .then(({ id, quote, author}) => new Quote (id, quote, author))
+  //     .catch((error) => console.error(error));
+//  }
 }
 
 export default RandomQuote;

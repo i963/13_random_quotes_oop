@@ -28,10 +28,11 @@ class RandomQuotesApp {
     this.changeCurrentQuote(RandomQuote.getRandomQuote());
   }
 
-  getRandomQuoteViaAPI(){
-    RandomQuote.getRandomQuoteViaAPI().then((quote) => 
-      this.changeCurrentQuote(quote)
-    );
+  async getRandomQuoteViaAPI(){
+    // put code on pause still promise will be fulfilled
+    const quoteViaAPI = await RandomQuote.getRandomQuoteViaAPI();
+    // change current quote
+    this.changeCurrentQuote(quoteViaAPI)
   }
 
   init() {
