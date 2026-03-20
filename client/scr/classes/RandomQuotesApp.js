@@ -1,10 +1,15 @@
 import RandomQuote from "./RandomQuote.js";
-import Quote from './Quote.js';
+import Quote from "./Quote.js";
 
 class RandomQuotesApp {
   constructor() {
     this.randomQuoteBtn = document.getElementById("random-quote-btn");
-    this.randomQuoteAPIBtn = document.getElementById("random-quote-api-btn")
+    this.randomQuotePublicAPIBtn = document.getElementById(
+      "random-quote-public-api-btn",
+    );
+    this.randomQuoteOwnAPIBtn = document.getElementById(
+      "random-quote-own-api-btn",
+    );
     this.quoteTextElement = document.getElementById("quote-text");
     this.quoteAuthorElement = document.getElementById("quote-author");
     this.currentQuote = null;
@@ -22,24 +27,33 @@ class RandomQuotesApp {
       this.currentQuote = newQuote;
       this.displayCurrentQuote();
     }
-}
+  }
 
   randomQuoteHandler() {
     this.changeCurrentQuote(RandomQuote.getRandomQuote());
   }
 
-  async randomQuoteViaAPIHandler(){
-    // put code on pause still promise will be fulfilled
-    const quoteViaAPI = await RandomQuote.getRandomQuoteViaAPI();
-    // change current quote
-    this.changeCurrentQuote(quoteViaAPI)
+  async handleRandomQuoteViaAPI(apiIsOwn){
+    if (apiIsOwn){
+      //change current quote + put code on pause still promise will be fulfilled
+      this.changeCurrentQuote(await RandomQuote.getRandomQuoteViaOwnAPI());
+    } else{
+      this.changeCurrentQuote(await RandomQuote.getRandomQuoteViaPublicAPI());
+    }
+
   }
 
   init() {
-    this.randomQuoteBtn.addEventListener("click", () => this.randomQuoteHandler());
-    this.randomQuoteAPIBtn.addEventListener("click", () => this.randomQuoteViaAPIHandler());
+    this.randomQuoteBtn.addEventListener("click", () =>
+      this.randomQuoteHandler(),
+    );
+    this.randomQuotePublicAPIBtn.addEventListener("click", () =>
+      this.handleRandomQuoteViaAPI({apiIsOwn: false}),
+    );
+    this.randomQuoteOwnAPIBtn.addEventListener("click", () =>
+      this.handleRandomQuoteViaAPI({apiIsOwn: true}),
+    );
   }
 }
 
 export default RandomQuotesApp;
-
