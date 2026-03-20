@@ -1,6 +1,7 @@
 import quotes from "../data/quotes.js";
 import MathUtils from "../utils/math.js";
 import Quote from "./Quote.js";
+import config from '../../config.js';
 
 class RandomQuote {
   // static method for returning new example of quotes
@@ -14,7 +15,8 @@ class RandomQuote {
   // Promise returned by the getRandomQuoteViaAPI function will be always fulfilled
   // Result of the fulfilled promise will be either Quote or undefined
   static async getRandomQuoteViaPublicAPI() {
-    const url = "https://quoteslate.vercel.app/api/quotes/random";
+    // const url = "https://quoteslate.vercel.app/api/quotes/random";
+    const url = `${config.PUBLIC_API_URL}/quotes/random`;
     const options = { headers: { "Content-Type": "application/json" } };
     try {
       // wait result of 2 promise
@@ -29,7 +31,8 @@ class RandomQuote {
   }
 
   static async getRandomQuoteViaOwnAPI(){
-    const url = "http://localhost:3000/quotes/random-single";
+    // const url = "http://localhost:3000/quotes/random-single";
+    const url = `${config.API_URL}/quotes/random-single`;
     const options = { headers: { "Content-Type": "application/json" } };
     try {
       const response = await fetch(url, options);
