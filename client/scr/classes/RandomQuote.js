@@ -2,15 +2,6 @@ import quotes from "../data/quotes.js";
 import MathUtils from "../utils/math.js";
 import Quote from "./Quote.js";
 import config from '../../config.js';
-
-let config;
-
-try {
-  config = await import('../../config.prod.js')
-} catch (error) {
-  config = await import('../../config.js')
-}
-
 class RandomQuote {
   // static method for returning new example of quotes
   static getRandomQuote() {
